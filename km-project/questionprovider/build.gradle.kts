@@ -28,7 +28,6 @@ kotlin {
 
         androidMain.dependencies {
             implementation(project.dependencies.platform(libs.firebase.bom))
-            implementation(libs.firebase.vertexai)
             implementation(libs.com.google.firebase.firebase.ai)
 
         }
