@@ -1,4 +1,4 @@
-package org.davidtiago.genaitriviagame.gemini
+package org.davidtiago.genaitriviagame.repository.gemini
 
 import org.davidtiago.genaitriviagame.model.Question
 
@@ -8,4 +8,3 @@ internal actual class GeminiApi actual constructor() {
         return emptyList()
     }
 }
-

@@ -1,12 +1,12 @@
-package org.davidtiago.genaitriviagame.gemini
+package org.davidtiago.genaitriviagame.repository.gemini
 
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
 import com.google.firebase.ai.type.GenerativeBackend
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import org.davidtiago.genaitriviagame.defaultQuestionsPrompt
 import org.davidtiago.genaitriviagame.model.Question
+import org.davidtiago.genaitriviagame.repository.defaultQuestionsPrompt
 
 internal actual class GeminiApi actual constructor() {
     actual suspend fun getQuestions(): List<Question> {
@@ -23,9 +23,9 @@ internal actual class GeminiApi actual constructor() {
         }
         return try {
             Json.decodeFromString<List<Question>>(text)
-        } catch (e: SerializationException) {
+        } catch (_: SerializationException) {
             emptyList()
-        } catch (e: IllegalArgumentException) {
+        } catch (_: IllegalArgumentException) {
             emptyList()
         }
     }

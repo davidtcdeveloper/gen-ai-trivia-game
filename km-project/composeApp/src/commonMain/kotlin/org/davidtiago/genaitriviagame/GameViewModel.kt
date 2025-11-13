@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.davidtiago.genaitriviagame.model.Question
-import org.davidtiago.genaitriviagame.repository.GeminiQuestionRepository
+import org.davidtiago.genaitriviagame.repository.gemini.GeminiQuestionRepository
 
 class GameViewModel {
     // TODO: Dependency Injection

@@ -1,7 +1,8 @@
-package org.davidtiago.genaitriviagame.repository
+package org.davidtiago.genaitriviagame.repository.gemini
 
-import org.davidtiago.genaitriviagame.gemini.GeminiApi
+import org.davidtiago.genaitriviagame.repository.gemini.GeminiApi
 import org.davidtiago.genaitriviagame.model.Question
+import org.davidtiago.genaitriviagame.repository.QuestionRepository
 
 class GeminiQuestionRepository : QuestionRepository {
     private val geminiApi = GeminiApi()

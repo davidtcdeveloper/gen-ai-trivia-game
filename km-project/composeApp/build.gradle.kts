@@ -34,6 +34,8 @@ kotlin {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
             implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.com.google.firebase.firebase.ai)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -45,9 +47,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.kotlinx.coroutines.core)
-            
-            //Project dependencies
-            implementation(project(":questionprovider"))
+            implementation(libs.kotlinx.serialization.json)
         }
     }
 }

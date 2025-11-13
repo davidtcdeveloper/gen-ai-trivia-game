@@ -1,4 +1,4 @@
-package org.davidtiago.genaitriviagame
+package org.davidtiago.genaitriviagame.repository
 
 const val defaultQuestionsPrompt = "" +
         "Generate 5 trivia questions with multiple-choice answers." +
