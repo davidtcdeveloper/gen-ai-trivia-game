@@ -23,11 +23,9 @@ internal actual class GeminiApi actual constructor() {
         }
         return try {
             Json.decodeFromString<List<Question>>(text)
-        } catch (e: SerializationException) {
-            e.printStackTrace()
+        } catch (_: SerializationException) {
             emptyList()
-        } catch (e: IllegalArgumentException) {
-            e.printStackTrace()
+        } catch (_: IllegalArgumentException) {
             emptyList()
         }
     }
