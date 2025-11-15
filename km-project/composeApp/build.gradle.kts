@@ -25,6 +25,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            export(project(":questionprovider"))
         }
     }
     
@@ -47,7 +48,7 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             
             //Project dependencies
-            implementation(project(":questionprovider"))
+            api(project(":questionprovider"))
         }
     }
 }
