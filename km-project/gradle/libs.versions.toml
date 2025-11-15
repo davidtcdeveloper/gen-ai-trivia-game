@@ -11,6 +11,7 @@ coroutines = "1.10.2"
 firebaseBom = "34.5.0"
 kotlinx-serialization = "1.9.0"
 googleServices = "4.4.4"
+touchlabSkie = "0.10.8"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -30,3 +31,4 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+touchlabSkie = { id = "co.touchlab.skie", version.ref = "touchlabSkie" }
