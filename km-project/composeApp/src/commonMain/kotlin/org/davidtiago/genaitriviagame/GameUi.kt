@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.davidtiago.genaitriviagame.model.Question
+import org.davidtiago.genaitriviagame.repository.QuestionRepository
 
 @Composable
 private fun LoadingScreen() {
@@ -59,8 +60,8 @@ private fun ErrorScreen(onRetry: () -> Unit) {
 }
 
 @Composable
-fun QuestionGame() {
-    val viewModel = remember { GameViewModel() }
+fun QuestionGame(questionRepository: QuestionRepository) {
+    val viewModel = remember { GameViewModel(questionRepository) }
     
     when {
         viewModel.isLoading -> {

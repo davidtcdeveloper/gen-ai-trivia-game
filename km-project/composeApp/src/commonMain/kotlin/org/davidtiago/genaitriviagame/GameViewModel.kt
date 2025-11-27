@@ -8,11 +8,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.davidtiago.genaitriviagame.model.Question
-import org.davidtiago.genaitriviagame.repository.GeminiQuestionRepository
+import org.davidtiago.genaitriviagame.repository.QuestionRepository
 
-class GameViewModel {
-    // TODO: Dependency Injection
-    private val questionRepository = GeminiQuestionRepository()
+class GameViewModel(
+    private val questionRepository: QuestionRepository // TODO: Dependency Injection
+) {
     var questions by mutableStateOf<List<Question>>(emptyList())
         private set
     var isLoading by mutableStateOf(true)

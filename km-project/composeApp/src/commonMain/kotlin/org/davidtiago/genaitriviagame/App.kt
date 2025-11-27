@@ -8,18 +8,19 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.davidtiago.genaitriviagame.repository.QuestionRepository
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App() {
+fun App(questionRepository: QuestionRepository) {
     MaterialTheme {
         Column(
             Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                QuestionGame()
+                QuestionGame(questionRepository)
             }
         }
     }
