@@ -7,7 +7,8 @@ import Foundation
 import ComposeApp
 
 class IosGeminiApi: GeminiApi {
-    func getQuestions() -> String {
+    func getQuestions() async throws -> String {
+        //TODO invoke the actual API
         "[]"
     }
 }
