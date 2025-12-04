@@ -1,5 +1,8 @@
 package org.davidtiago.genaitriviagame
 
+//TODO Isolate gemini-specific values
+const val defaultGeminiModel = "gemini-2.5-flash"
+
 const val defaultQuestionsPrompt = "" +
         "Generate 5 trivia questions with multiple-choice answers." +
         "Questions should be about general knowledge topics. Do not create long questions. Randomize the subject of each question." +

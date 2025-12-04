@@ -6,7 +6,9 @@ struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
         MainViewControllerKt.MainViewController(
             questionRepository: GeminiQuestionRepository(
-                geminiApi: IosGeminiApi()
+                geminiApi: IosGeminiApi(model: PromptKt.defaultGeminiModel,
+                                        prompt: PromptKt.defaultQuestionsPrompt
+                )
             )
         )
     }

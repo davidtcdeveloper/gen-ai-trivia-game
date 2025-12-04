@@ -16,7 +16,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             App(
                 GeminiQuestionRepository(
-                    AndroidGeminiApi()
+                    AndroidGeminiApi(
+                        model = defaultGeminiModel,
+                        prompt = defaultQuestionsPrompt,
+                    )
                 )
             )
         }
