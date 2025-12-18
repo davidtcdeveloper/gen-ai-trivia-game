@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.davidtiago.genaitriviagame.model.Question
 import org.davidtiago.genaitriviagame.repository.QuestionRepository
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 private fun LoadingScreen() {
@@ -60,16 +61,18 @@ private fun ErrorScreen(onRetry: () -> Unit) {
 }
 
 @Composable
-fun QuestionGame(questionRepository: QuestionRepository) {
-    val viewModel = remember { GameViewModel(questionRepository) }
-    
+fun QuestionGame(
+    viewModel: GameViewModel = koinViewModel(),
+) {
     when {
         viewModel.isLoading -> {
             LoadingScreen()
         }
+
         viewModel.questions.isEmpty() -> {
             ErrorScreen(onRetry = viewModel::loadQuestions)
         }
+
         viewModel.isGameFinished -> {
             GameResults(
                 score = viewModel.score,
@@ -77,9 +80,10 @@ fun QuestionGame(questionRepository: QuestionRepository) {
                 onRestart = viewModel::restartGame
             )
         }
+
         else -> {
             val question = viewModel.getCurrentQuestion()
-            
+
             Column(
                 modifier = Modifier.fillMaxWidth()
                     .padding(16.dp),
@@ -256,7 +260,7 @@ fun GameResults(
             style = MaterialTheme.typography.h4,
             modifier = Modifier.padding(bottom = 24.dp)
         )
-        
+
         Card(
             modifier = Modifier.fillMaxWidth()
                 .padding(16.dp),
@@ -288,7 +292,7 @@ fun GameResults(
                     style = MaterialTheme.typography.body1,
                     modifier = Modifier.padding(bottom = 24.dp)
                 )
-                
+
                 Button(
                     onClick = onRestart,
                     modifier = Modifier.padding(top = 16.dp)

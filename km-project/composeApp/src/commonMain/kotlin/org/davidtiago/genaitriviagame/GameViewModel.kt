@@ -3,6 +3,7 @@ package org.davidtiago.genaitriviagame
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -11,8 +12,8 @@ import org.davidtiago.genaitriviagame.model.Question
 import org.davidtiago.genaitriviagame.repository.QuestionRepository
 
 class GameViewModel(
-    private val questionRepository: QuestionRepository // TODO: Dependency Injection
-) {
+    private val questionRepository: QuestionRepository
+): ViewModel() {
     var questions by mutableStateOf<List<Question>>(emptyList())
         private set
     var isLoading by mutableStateOf(true)

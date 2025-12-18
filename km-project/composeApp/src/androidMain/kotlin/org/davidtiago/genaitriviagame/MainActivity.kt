@@ -12,16 +12,8 @@ import org.davidtiago.genaitriviagame.repository.gemini.GeminiQuestionRepository
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //TODO: Dependency Injection
         setContent {
-            App(
-                GeminiQuestionRepository(
-                    AndroidGeminiApi(
-                        model = defaultGeminiModel,
-                        prompt = defaultQuestionsPrompt,
-                    )
-                )
-            )
+            App()
         }
     }
 }
@@ -29,5 +21,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App(InMemoryMockQuestionRepository())
+    App()
 }

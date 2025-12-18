@@ -13,14 +13,14 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App(questionRepository: QuestionRepository) {
+fun App() {
     MaterialTheme {
         Column(
             Modifier.fillMaxWidth().verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                QuestionGame(questionRepository)
+                QuestionGame()
             }
         }
     }

@@ -37,17 +37,26 @@ kotlin {
             implementation(project.dependencies.platform(libs.firebase.bom))
         }
         commonMain.dependencies {
+            // Jetpack Compose
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            // Lifecycle
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+
+            //KotlinX
             implementation(libs.kotlinx.coroutines.core)
+
+            // Dependency Injection
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose.viewmodel)
             
-            //Project dependencies
+            //Module dependencies
             api(project(":questionprovider"))
         }
     }

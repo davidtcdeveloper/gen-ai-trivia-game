@@ -20,9 +20,14 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            // KotlinX
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kotlinx.serialization.json)
+
+            // Dependency Injection
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose.viewmodel)
         }
 
 
