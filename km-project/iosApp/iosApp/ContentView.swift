@@ -4,13 +4,7 @@ import ComposeApp
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.MainViewController(
-            questionRepository: GeminiQuestionRepository(
-                geminiApi: IosGeminiApi(model: PromptKt.defaultGeminiModel,
-                                        prompt: PromptKt.defaultQuestionsPrompt
-                )
-            )
-        )
+        MainViewControllerKt.MainViewController()
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
