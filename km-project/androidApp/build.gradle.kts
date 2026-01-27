@@ -57,6 +57,9 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     // Firebase
     implementation(project.dependencies.platform(libs.firebase.bom))
+    // Dependency Injection
+    implementation(libs.koin.core)
+    implementation(libs.koin.compose.viewmodel) //TODO: Check if still needed
     // Local project dependencies
     implementation(project(":composeApp"))
 }
