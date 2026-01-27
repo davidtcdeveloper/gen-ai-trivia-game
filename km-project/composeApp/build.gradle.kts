@@ -1,22 +1,28 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinMultiplatform) //TODO: Check if still needed
+    alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.googleServices)
 }
 
+
 kotlin {
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    @Suppress("UnstableApiUsage") ///TODO: Remove
+    androidLibrary {
+        namespace = "org.davidtiago.genaitriviagame.composeApp"
+        compileSdk = libs.versions.android.targetSdk.get().toInt()
+
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
+        androidResources {
+            enable = true
+        }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -28,9 +34,9 @@ kotlin {
             export(project(":questionprovider"))
         }
     }
-    
+
     sourceSets {
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -55,19 +61,13 @@ kotlin {
             // Dependency Injection
             implementation(libs.koin.core)
             implementation(libs.koin.compose.viewmodel)
-            
+
             //Module dependencies
             api(project(":questionprovider"))
         }
     }
 }
-android {
-    namespace = "org.davidtiago.genaitriviagame.composeApp"
-    compileSdk = libs.versions.android.targetSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-}
-dependencies {
-    debugImplementation(compose.uiTooling)
-}
+//TODO: Replace with androidRuntimeClasspath
+//dependencies {
+//    debugImplementation(compose.uiTooling)
+//}
