@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -10,7 +9,6 @@ plugins {
 
 
 kotlin {
-    @Suppress("UnstableApiUsage") ///TODO: Remove
     androidLibrary {
         namespace = "org.davidtiago.genaitriviagame.composeApp"
         compileSdk = libs.versions.android.targetSdk.get().toInt()
