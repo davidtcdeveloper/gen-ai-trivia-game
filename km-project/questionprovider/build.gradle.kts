@@ -1,11 +1,24 @@
+import com.android.build.api.dsl.androidLibrary
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinMultiplatform) //TODO: Check if still needed
+    alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
-    androidTarget {
+    @Suppress("UnstableApiUsage") ///TODO: Remove
+    androidLibrary {
+        namespace = "org.davidtiago.genaitriviagame.questionprovider"
+        compileSdk = libs.versions.android.targetSdk.get().toInt()
+
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
+        androidResources {
+            enable = true
+        }
     }
 
     listOf(
@@ -40,13 +53,5 @@ kotlin {
         iosMain.dependencies {
             // No specific dependencies for iOS
         }
-    }
-}
-
-android {
-    namespace = "org.davidtiago.genaitriviagame.questionprovider"
-    compileSdk = libs.versions.android.targetSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 }
