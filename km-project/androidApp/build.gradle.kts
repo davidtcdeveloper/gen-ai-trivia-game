@@ -49,7 +49,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     // Jetpack compose
     implementation(platform(libs.androidx.compose.bom))
-    //TODO: review if these other compose dependencies are needed. Check if BOM is enough
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
@@ -58,7 +57,7 @@ dependencies {
     implementation(project.dependencies.platform(libs.firebase.bom))
     // Dependency Injection
     implementation(libs.koin.core)
-    implementation(libs.koin.compose.viewmodel) //TODO: Check if still needed
+    implementation(libs.koin.compose.viewmodel)
     // Local project dependencies
     implementation(project(":composeApp"))
 }

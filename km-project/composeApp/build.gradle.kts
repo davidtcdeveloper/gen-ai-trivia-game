@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform) //TODO: Check if still needed
+    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
@@ -65,7 +65,3 @@ kotlin {
         }
     }
 }
-//TODO: Replace with androidRuntimeClasspath
-//dependencies {
-//    debugImplementation(compose.uiTooling)
-//}
