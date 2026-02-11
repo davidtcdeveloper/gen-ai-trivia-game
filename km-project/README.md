@@ -1,14 +1,15 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+# Gen AI Trivia Game
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+This is a Kotlin Multiplatform project that implements a simple Trivia Game.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Project Structure
 
+*   `composeApp`: Contains the shared UI, written in Compose Multiplatform.
+*   `androidApp`: The Android application.
+*   `iosApp`: The iOS application.
+*   `questionprovider`: A shared module for providing trivia questions.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## Setup
+
+This project requires Android Studio in the latest version with Kotlin Multiplatform plugin installed.
+It also relies on [Firebase AI Logic](https://firebase.google.com/docs/ai-logic?authuser=0) to generate the questions. In order to build successfully, a project must be configured in Firebase Console and the json files with API keys for Android and iOS must be downloaded and placed on `androidApp` and `iosApp` folders. 
