@@ -58,6 +58,7 @@ private fun ErrorScreen(onRetry: () -> Unit) {
     }
 }
 
+//TODO: Change this from composable state handling to a navigation pattern
 @Composable
 fun QuestionGame(
     viewModel: GameViewModel = koinViewModel(),
