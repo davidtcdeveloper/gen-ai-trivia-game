@@ -48,6 +48,7 @@ kotlin {
             implementation(libs.ui)
             implementation(libs.components.resources)
             implementation(libs.ui.tooling.preview)
+            implementation(libs.navigation3.multiplatform)
 
             // Lifecycle
             implementation(libs.androidx.lifecycle.viewmodel)
