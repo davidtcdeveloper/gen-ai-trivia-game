@@ -80,38 +80,54 @@ fun QuestionGame(
             )
         }
 
+        viewModel.isSubmitted -> {
+            ResultCard(
+                selectedAnswer = viewModel.selectedAnswer,
+                question = viewModel.getCurrentQuestion(),
+                onNextQuestion = viewModel::onNextQuestion,
+                hasMoreQuestions = viewModel.hasMoreQuestions
+            )
+        }
+
         else -> {
             val question = viewModel.getCurrentQuestion()
+            QuestionComposable(
+                question = question,
+                selectedAnswer = viewModel.selectedAnswer,
+                onAnswerSelected = viewModel::onAnswerSelected,
+                onSubmit = viewModel::onSubmit,
+                )
+        }
+    }
+}
 
-            Column(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                QuestionText(question)
-                AnimatedVisibility(
-                    visible = !viewModel.isSubmitted,
-                    enter = fadeIn() + expandVertically(),
-                    exit = fadeOut() + shrinkVertically()
-                ) {
-                    Column {
-                        AnswerOptions(
-                            question = question,
-                            selectedAnswer = viewModel.selectedAnswer,
-                            onAnswerSelected = viewModel::onAnswerSelected
-                        )
-                        SubmitButton(
-                            selectedAnswer = viewModel.selectedAnswer,
-                            onSubmit = viewModel::onSubmit
-                        )
-                    }
-                }
-                ResultCard(
-                    isSubmitted = viewModel.isSubmitted,
-                    selectedAnswer = viewModel.selectedAnswer,
+@Composable
+internal fun QuestionComposable(
+    question: Question,
+    selectedAnswer: String?,
+    onAnswerSelected: (String) -> Unit,
+    onSubmit: () -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        QuestionText(question)
+        AnimatedVisibility(
+            visible = true, //TODO review
+            enter = fadeIn() + expandVertically(),
+            exit = fadeOut() + shrinkVertically()
+        ) {
+            Column {
+                AnswerOptions(
                     question = question,
-                    onNextQuestion = viewModel::onNextQuestion,
-                    hasMoreQuestions = viewModel.hasMoreQuestions
+                    selectedAnswer = selectedAnswer,
+                    onAnswerSelected = onAnswerSelected,
+                )
+                SubmitButton(
+                    selectedAnswer = selectedAnswer,
+                    onSubmit = onSubmit
                 )
             }
         }
@@ -182,31 +198,28 @@ internal fun SubmitButton(
 
 @Composable
 internal fun ResultCard(
-    isSubmitted: Boolean,
     selectedAnswer: String?,
     question: Question,
     onNextQuestion: () -> Unit,
     hasMoreQuestions: Boolean
 ) {
-    if (isSubmitted) {
-        val isCorrect = selectedAnswer == question.correctAnswer
-        AnimatedVisibility(
-            visible = true,
-            enter = fadeIn() + expandVertically()
-        ) {
-            Column {
-                if (isCorrect) {
-                    CorrectAnswerCard(selectedAnswer)
-                } else {
-                    WrongAnswerCard(selectedAnswer, question.correctAnswer)
-                }
-                if (hasMoreQuestions) {
-                    Button(
-                        onClick = onNextQuestion,
-                        modifier = Modifier.padding(top = 16.dp)
-                    ) {
-                        Text("Next Question")
-                    }
+    val isCorrect = selectedAnswer == question.correctAnswer
+    AnimatedVisibility(
+        visible = true,
+        enter = fadeIn() + expandVertically()
+    ) {
+        Column {
+            if (isCorrect) {
+                CorrectAnswerCard(selectedAnswer)
+            } else {
+                WrongAnswerCard(selectedAnswer, question.correctAnswer)
+            }
+            if (hasMoreQuestions) {
+                Button(
+                    onClick = onNextQuestion,
+                    modifier = Modifier.padding(top = 16.dp)
+                ) {
+                    Text("Next Question")
                 }
             }
         }
