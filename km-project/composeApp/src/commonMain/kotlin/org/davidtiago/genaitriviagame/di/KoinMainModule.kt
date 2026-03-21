@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 val mainModule = module {
     //TODO: Separate this into a module for a different variant
-//    singleOf(::GeminiQuestionRepository){ bind<QuestionRepository>() }
-    singleOf(::InMemoryMockQuestionRepository){ bind<QuestionRepository>() }
+    singleOf(::GeminiQuestionRepository){ bind<QuestionRepository>() }
+//    singleOf(::InMemoryMockQuestionRepository){ bind<QuestionRepository>() }
     viewModelOf(::GameViewModel)
 }
