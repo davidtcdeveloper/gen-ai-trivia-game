@@ -18,14 +18,11 @@ import androidx.compose.ui.tooling.preview.Preview
 fun App() {
     MaterialTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
-            Column(
-                Modifier.padding(paddingValues)
+            QuestionGame(
+                modifier = Modifier.padding(paddingValues)
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState()),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                QuestionGame()
-            }
+            )
         }
     }
 }

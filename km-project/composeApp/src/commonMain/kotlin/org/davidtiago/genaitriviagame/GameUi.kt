@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -62,41 +64,44 @@ private fun ErrorScreen(onRetry: () -> Unit) {
 @Composable
 fun QuestionGame(
     viewModel: GameViewModel = koinViewModel(),
+    modifier: Modifier = Modifier,
 ) {
-    when {
-        viewModel.isLoading -> {
-            LoadingScreen()
-        }
+    Column(modifier) {
+        when {
+            viewModel.isLoading -> {
+                LoadingScreen()
+            }
 
-        viewModel.questions.isEmpty() -> {
-            ErrorScreen(onRetry = viewModel::loadQuestions)
-        }
+            viewModel.questions.isEmpty() -> {
+                ErrorScreen(onRetry = viewModel::loadQuestions)
+            }
 
-        viewModel.isGameFinished -> {
-            GameResults(
-                score = viewModel.score,
-                totalQuestions = viewModel.totalQuestions,
-                onRestart = viewModel::restartGame
-            )
-        }
-
-        viewModel.isSubmitted -> {
-            ResultCard(
-                selectedAnswer = viewModel.selectedAnswer,
-                question = viewModel.getCurrentQuestion(),
-                onNextQuestion = viewModel::onNextQuestion,
-                hasMoreQuestions = viewModel.hasMoreQuestions
-            )
-        }
-
-        else -> {
-            val question = viewModel.getCurrentQuestion()
-            QuestionComposable(
-                question = question,
-                selectedAnswer = viewModel.selectedAnswer,
-                onAnswerSelected = viewModel::onAnswerSelected,
-                onSubmit = viewModel::onSubmit,
+            viewModel.isGameFinished -> {
+                GameResults(
+                    score = viewModel.score,
+                    totalQuestions = viewModel.totalQuestions,
+                    onRestart = viewModel::restartGame
                 )
+            }
+
+            viewModel.isSubmitted -> {
+                ResultCard(
+                    selectedAnswer = viewModel.selectedAnswer,
+                    question = viewModel.getCurrentQuestion(),
+                    onNextQuestion = viewModel::onNextQuestion,
+                    hasMoreQuestions = viewModel.hasMoreQuestions
+                )
+            }
+
+            else -> {
+                val question = viewModel.getCurrentQuestion()
+                QuestionComposable(
+                    question = question,
+                    selectedAnswer = viewModel.selectedAnswer,
+                    onAnswerSelected = viewModel::onAnswerSelected,
+                    onSubmit = viewModel::onSubmit,
+                )
+            }
         }
     }
 }
