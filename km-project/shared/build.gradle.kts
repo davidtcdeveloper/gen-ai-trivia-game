@@ -10,7 +10,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "org.davidtiago.genaitriviagame.composeApp"
+        namespace = "org.davidtiago.genaitriviagame.shared"
         compileSdk = libs.versions.android.targetSdk.get().toInt()
 
         compilerOptions {
@@ -26,7 +26,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "ComposeApp"
+            baseName = "Shared"
             isStatic = true
             export(project(":questionprovider"))
         }

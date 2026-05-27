@@ -60,5 +60,5 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.compose.viewmodel)
     // Local project dependencies
-    implementation(project(":composeApp"))
+    implementation(project(":shared"))
 }

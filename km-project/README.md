@@ -4,7 +4,7 @@ This is a Kotlin Multiplatform project that implements a simple Trivia Game.
 
 ## Project Structure
 
-*   `composeApp`: Contains the shared UI, written in Compose Multiplatform.
+*   `shared`: Contains the shared UI, written in Compose Multiplatform.
 *   `androidApp`: The Android application.
 *   `iosApp`: The iOS application.
 *   `questionprovider`: A shared module for providing trivia questions.

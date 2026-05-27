@@ -28,6 +28,6 @@ dependencyResolutionManagement {
     }
 }
 
-include(":composeApp")
+include(":shared")
 include(":questionprovider")
 include(":androidApp")

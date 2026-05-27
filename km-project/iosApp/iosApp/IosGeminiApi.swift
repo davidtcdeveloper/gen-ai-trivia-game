@@ -1,4 +1,4 @@
-import ComposeApp
+import Shared
 import FirebaseAILogic
 import Foundation
 
