@@ -60,9 +60,6 @@ class GameViewModel(
         if (selectedAnswer == getCurrentQuestion().correctAnswer) {
             correctAnswers++
         }
-        if (!hasMoreQuestions) {
-            isGameFinished = true
-        }
     }
 
     fun onNextQuestion() {
@@ -70,6 +67,8 @@ class GameViewModel(
             currentQuestionIndex++
             selectedAnswer = null
             isSubmitted = false
+        } else {
+            isGameFinished = true
         }
     }
 

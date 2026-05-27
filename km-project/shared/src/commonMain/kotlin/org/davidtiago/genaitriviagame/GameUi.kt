@@ -226,6 +226,13 @@ internal fun ResultCard(
                 ) {
                     Text("Next Question")
                 }
+            } else {
+                Button(
+                    onClick = onNextQuestion,
+                    modifier = Modifier.padding(top = 16.dp)
+                ) {
+                    Text("View Results")
+                }
             }
         }
     }
