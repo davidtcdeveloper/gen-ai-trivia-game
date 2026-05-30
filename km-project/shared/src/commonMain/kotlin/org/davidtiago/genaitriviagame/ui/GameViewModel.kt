@@ -1,4 +1,4 @@
-package org.davidtiago.genaitriviagame
+package org.davidtiago.genaitriviagame.ui
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

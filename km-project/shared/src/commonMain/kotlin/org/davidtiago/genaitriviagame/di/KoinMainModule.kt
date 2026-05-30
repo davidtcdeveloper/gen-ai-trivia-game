@@ -1,7 +1,6 @@
 package org.davidtiago.genaitriviagame.di
 
-import org.davidtiago.genaitriviagame.GameViewModel
-import org.davidtiago.genaitriviagame.repository.InMemoryMockQuestionRepository
+import org.davidtiago.genaitriviagame.ui.GameViewModel
 import org.davidtiago.genaitriviagame.repository.QuestionRepository
 import org.davidtiago.genaitriviagame.repository.gemini.GeminiQuestionRepository
 import org.koin.core.module.dsl.bind
