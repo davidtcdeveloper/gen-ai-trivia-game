@@ -4,24 +4,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.davidtiago.genaitriviagame.model.Question
 import org.davidtiago.genaitriviagame.repository.QuestionRepository
 
 class GameViewModel(
     private val questionRepository: QuestionRepository
-): ViewModel() {
+) : ViewModel() {
     var questions by mutableStateOf<List<Question>>(emptyList())
         private set
     var isLoading by mutableStateOf(true)
         private set
-
-    //TODO improve overall coroutines handling
-    private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
-
     private var currentQuestionIndex by mutableStateOf(0)
     var selectedAnswer by mutableStateOf<String?>(null)
     var isSubmitted by mutableStateOf(false)
@@ -33,7 +27,7 @@ class GameViewModel(
     }
 
     fun loadQuestions() {
-        scope.launch {
+        viewModelScope.launch {
             isLoading = true
             questions = questionRepository.getQuestions()
             isLoading = false
@@ -78,9 +72,5 @@ class GameViewModel(
         isSubmitted = false
         isGameFinished = false
         correctAnswers = 0
-    }
-
-    fun onDestroy() {
-        //TODO cancel the scope
     }
 }
