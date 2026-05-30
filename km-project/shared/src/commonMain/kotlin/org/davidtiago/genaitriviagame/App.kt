@@ -3,6 +3,7 @@ package org.davidtiago.genaitriviagame
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
@@ -19,6 +20,7 @@ fun App() {
         Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
             GameUi(
                 modifier = Modifier.padding(paddingValues)
+                    .safeDrawingPadding()
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState()),
             )
