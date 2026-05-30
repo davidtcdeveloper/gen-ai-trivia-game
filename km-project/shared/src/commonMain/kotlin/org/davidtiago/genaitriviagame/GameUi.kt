@@ -120,7 +120,7 @@ internal fun QuestionComposable(
     ) {
         QuestionText(question)
         AnimatedVisibility(
-            visible = true, //TODO review
+            visible = true,
             enter = fadeIn() + expandVertically(),
             exit = fadeOut() + shrinkVertically()
         ) {
