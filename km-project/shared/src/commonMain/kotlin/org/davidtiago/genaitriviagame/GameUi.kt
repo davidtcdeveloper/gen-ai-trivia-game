@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -26,39 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.davidtiago.genaitriviagame.model.Question
 import org.koin.compose.viewmodel.koinViewModel
-
-@Composable
-private fun LoadingScreen() {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            "Loading questions...",
-            style = MaterialTheme.typography.h6,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-    }
-}
-
-@Composable
-private fun ErrorScreen(onRetry: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            "Failed to load questions",
-            style = MaterialTheme.typography.h6,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        Button(onClick = onRetry) {
-            Text("Retry")
-        }
-    }
-}
 
 //TODO: Change this from composable state handling to a navigation pattern
 @Composable
