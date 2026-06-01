@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import org.koin.compose.viewmodel.koinViewModel
+import org.davidtiago.genaitriviagame.presentation.GameState
 
 //TODO: Change this from composable state handling to a navigation pattern
 @Composable
