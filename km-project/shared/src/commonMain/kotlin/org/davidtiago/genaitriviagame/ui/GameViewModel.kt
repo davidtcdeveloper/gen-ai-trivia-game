@@ -1,10 +1,10 @@
 package org.davidtiago.genaitriviagame.ui
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.davidtiago.genaitriviagame.model.Question
 import org.davidtiago.genaitriviagame.repository.QuestionRepository
@@ -12,15 +12,16 @@ import org.davidtiago.genaitriviagame.repository.QuestionRepository
 class GameViewModel(
     private val questionRepository: QuestionRepository
 ) : ViewModel() {
-    var questions by mutableStateOf<List<Question>>(emptyList())
-        private set
-    var isLoading by mutableStateOf(true)
-        private set
-    private var currentQuestionIndex by mutableStateOf(0)
-    var selectedAnswer by mutableStateOf<String?>(null)
-    var isSubmitted by mutableStateOf(false)
-    var isGameFinished by mutableStateOf(false)
-    private var correctAnswers by mutableStateOf(0)
+    private var questions: List<Question> = emptyList()
+    private var isLoading = true
+    private var currentQuestionIndex = 0
+    private var selectedAnswer: String? = null
+    private var isSubmitted = false
+    private var isGameFinished = false
+    private var correctAnswers = 0
+
+    private val _gameState = MutableStateFlow<GameState>(GameState.Loading)
+    val gameState: StateFlow<GameState> = _gameState.asStateFlow()
 
     init {
         loadQuestions()
@@ -29,24 +30,48 @@ class GameViewModel(
     fun loadQuestions() {
         viewModelScope.launch {
             isLoading = true
+            updateState()
+            
             questions = questionRepository.getQuestions()
             isLoading = false
+            updateState()
         }
     }
 
-    val hasMoreQuestions: Boolean
+    private val hasMoreQuestions: Boolean
         get() = currentQuestionIndex < questions.size - 1
 
-    val totalQuestions: Int
-        get() = questions.size
+    private fun getCurrentQuestion(): Question = questions[currentQuestionIndex]
 
-    val score: Int
-        get() = correctAnswers
-
-    fun getCurrentQuestion(): Question = questions[currentQuestionIndex]
+    private fun updateState() {
+        _gameState.value = when {
+            isLoading -> GameState.Loading
+            questions.isEmpty() -> GameState.Error()
+            isGameFinished -> GameState.Finished(
+                score = correctAnswers,
+                totalQuestions = questions.size
+            )
+            isSubmitted -> {
+                val currentQuestion = getCurrentQuestion()
+                GameState.AnswerResult(
+                    question = currentQuestion,
+                    selectedAnswer = selectedAnswer,
+                    isCorrect = selectedAnswer == currentQuestion.correctAnswer,
+                    hasMoreQuestions = hasMoreQuestions
+                )
+            }
+            else -> GameState.QuestionActive(
+                question = getCurrentQuestion(),
+                selectedAnswer = selectedAnswer,
+                currentQuestionIndex = currentQuestionIndex,
+                totalQuestions = questions.size
+            )
+        }
+    }
 
     fun onAnswerSelected(answer: String) {
         selectedAnswer = answer
+        updateState()
     }
 
     fun onSubmit() {
@@ -54,6 +79,7 @@ class GameViewModel(
         if (selectedAnswer == getCurrentQuestion().correctAnswer) {
             correctAnswers++
         }
+        updateState()
     }
 
     fun onNextQuestion() {
@@ -64,6 +90,7 @@ class GameViewModel(
         } else {
             isGameFinished = true
         }
+        updateState()
     }
 
     fun restartGame() {
@@ -72,5 +99,6 @@ class GameViewModel(
         isSubmitted = false
         isGameFinished = false
         correctAnswers = 0
+        updateState()
     }
 }

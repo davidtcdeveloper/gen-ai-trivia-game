@@ -2,6 +2,8 @@ package org.davidtiago.genaitriviagame.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -11,42 +13,39 @@ fun GameUi(
     viewModel: GameViewModel = koinViewModel(),
     modifier: Modifier = Modifier,
 ) {
-    val currentQuestion = if (viewModel.questions.isNotEmpty()) {
-        viewModel.getCurrentQuestion()
-    } else {
-        null
-    }
+    val state by viewModel.gameState.collectAsState()
+
     Column(modifier) {
-        when {
-            viewModel.isLoading -> {
+        when (val currentState = state) {
+            is GameState.Loading -> {
                 LoadingScreen()
             }
 
-            viewModel.questions.isEmpty() -> {
+            is GameState.Error -> {
                 ErrorScreen(onRetry = viewModel::loadQuestions)
             }
 
-            viewModel.isGameFinished -> {
+            is GameState.Finished -> {
                 GameResultsUi(
-                    score = viewModel.score,
-                    totalQuestions = viewModel.totalQuestions,
+                    score = currentState.score,
+                    totalQuestions = currentState.totalQuestions,
                     onRestart = viewModel::restartGame
                 )
             }
 
-            viewModel.isSubmitted -> {
+            is GameState.AnswerResult -> {
                 ResultCardUi(
-                    selectedAnswer = viewModel.selectedAnswer,
-                    question = currentQuestion!!,
+                    selectedAnswer = currentState.selectedAnswer,
+                    question = currentState.question,
                     onNextQuestion = viewModel::onNextQuestion,
-                    hasMoreQuestions = viewModel.hasMoreQuestions
+                    hasMoreQuestions = currentState.hasMoreQuestions
                 )
             }
 
-            else -> {
+            is GameState.QuestionActive -> {
                 QuestionComposable(
-                    question = currentQuestion!!,
-                    selectedAnswer = viewModel.selectedAnswer,
+                    question = currentState.question,
+                    selectedAnswer = currentState.selectedAnswer,
                     onAnswerSelected = viewModel::onAnswerSelected,
                     onSubmit = viewModel::onSubmit,
                 )
