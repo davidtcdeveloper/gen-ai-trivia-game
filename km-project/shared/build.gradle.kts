@@ -9,7 +9,7 @@ plugins {
 
 
 kotlin {
-    androidLibrary {
+    android {
         namespace = "org.davidtiago.genaitriviagame.shared"
         compileSdk = libs.versions.android.targetSdk.get().toInt()
 
