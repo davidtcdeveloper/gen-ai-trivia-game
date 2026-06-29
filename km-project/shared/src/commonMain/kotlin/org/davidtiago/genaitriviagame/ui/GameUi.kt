@@ -1,6 +1,7 @@
 package org.davidtiago.genaitriviagame.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -12,7 +13,7 @@ import org.davidtiago.genaitriviagame.presentation.GameState
 @Composable
 fun GameUi(
     viewModel: GameViewModel = koinViewModel(),
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxSize(),
 ) {
     val state by viewModel.gameState.collectAsState()
 

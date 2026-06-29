@@ -21,8 +21,7 @@ fun App() {
             GameUi(
                 modifier = Modifier.padding(paddingValues)
                     .safeDrawingPadding()
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState()),
+                    .fillMaxSize(),
             )
         }
     }
