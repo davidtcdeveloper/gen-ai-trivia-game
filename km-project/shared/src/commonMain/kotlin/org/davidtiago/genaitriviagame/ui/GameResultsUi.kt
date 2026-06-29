@@ -1,6 +1,8 @@
 package org.davidtiago.genaitriviagame.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -20,7 +22,7 @@ fun GameResultsUi(
     onRestart: () -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -29,44 +31,48 @@ fun GameResultsUi(
             style = MaterialTheme.typography.h4,
             modifier = Modifier.padding(bottom = 24.dp)
         )
-
-        Card(
-            modifier = Modifier.fillMaxWidth()
-                .padding(16.dp),
-            backgroundColor = MaterialTheme.colors.surface,
-            elevation = 4.dp
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center
         ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+            Card(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(16.dp),
+                backgroundColor = MaterialTheme.colors.surface,
+                elevation = 4.dp
             ) {
-                Text(
-                    "Your Score",
-                    style = MaterialTheme.typography.h5,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
-                Text(
-                    "$score out of $totalQuestions",
-                    style = MaterialTheme.typography.h3,
-                    color = MaterialTheme.colors.primary,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
-                Text(
-                    "Correct Answers: $score",
-                    style = MaterialTheme.typography.body1,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Text(
-                    "Incorrect Answers: ${totalQuestions - score}",
-                    style = MaterialTheme.typography.body1,
-                    modifier = Modifier.padding(bottom = 24.dp)
-                )
-
-                Button(
-                    onClick = onRestart,
-                    modifier = Modifier.padding(top = 16.dp)
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("Play Again")
+                    Text(
+                        "Your Score",
+                        style = MaterialTheme.typography.h5,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+                    Text(
+                        "$score out of $totalQuestions",
+                        style = MaterialTheme.typography.h3,
+                        color = MaterialTheme.colors.primary,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+                    Text(
+                        "Correct Answers: $score",
+                        style = MaterialTheme.typography.body1,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+                    Text(
+                        "Incorrect Answers: ${totalQuestions - score}",
+                        style = MaterialTheme.typography.body1,
+                        modifier = Modifier.padding(bottom = 24.dp)
+                    )
+
+                    Button(
+                        onClick = onRestart,
+                        modifier = Modifier.padding(top = 16.dp)
+                    ) {
+                        Text("Play Again")
+                    }
                 }
             }
         }

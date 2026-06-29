@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
@@ -50,14 +51,20 @@ internal fun ResultCardUi(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(all = 16.dp)
+            modifier = Modifier.padding(all = 16.dp).fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
         ) {
-            if (isCorrect) {
-                CorrectAnswerCard(selectedAnswer)
-            } else {
-                WrongAnswerCard(selectedAnswer, question.correctAnswer)
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                if (isCorrect) {
+                    CorrectAnswerCard(selectedAnswer)
+                } else {
+                    WrongAnswerCard(selectedAnswer, question.correctAnswer)
+                }
             }
-            
+
             val buttonText = if (hasMoreQuestions) "Next Question" else "View Results"
             Button(
                 onClick = onNextQuestion,
