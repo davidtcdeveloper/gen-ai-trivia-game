@@ -38,18 +38,16 @@ internal fun QuestionComposable(
     ) {
         QuestionText(questionText = question.text)
 
-        Column(modifier = Modifier.weight(1f)) {
-            AnswerOptions(
-                options = question.options,
-                selectedAnswer = selectedAnswer,
-                onAnswerSelected = onAnswerSelected,
-                modifier = Modifier.weight(1f)
-            )
-            SubmitButton(
-                selectedAnswer = selectedAnswer,
-                onSubmit = onSubmit
-            )
-        }
+        AnswerOptions(
+            options = question.options,
+            selectedAnswer = selectedAnswer,
+            onAnswerSelected = onAnswerSelected,
+            modifier = Modifier.weight(1f)
+        )
+        SubmitButton(
+            selectedAnswer = selectedAnswer,
+            onSubmit = onSubmit
+        )
     }
 }
 
@@ -70,7 +68,7 @@ internal fun AnswerOptions(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
-        items(options) { option ->
+        items(options, key = { it }) { option ->
             val isSelected = selectedAnswer == option
             val onClick = remember(option, onAnswerSelected) {
                 { onAnswerSelected(option) }
