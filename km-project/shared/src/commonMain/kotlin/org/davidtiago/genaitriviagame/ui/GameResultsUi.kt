@@ -2,6 +2,7 @@ package org.davidtiago.genaitriviagame.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,13 +27,18 @@ fun GameResultsUi(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            "Quiz Complete!",
-            style = MaterialTheme.typography.h4,
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
         Box(
-            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .padding(bottom = 24.dp)
+                .weight(1f)
+        ) {
+            Text(
+                text = "Quiz Complete!",
+                style = MaterialTheme.typography.h4,
+            )
+        }
+        Box(
             contentAlignment = Alignment.Center
         ) {
             Card(
@@ -76,6 +82,7 @@ fun GameResultsUi(
                 }
             }
         }
+        Spacer(modifier = Modifier.weight(1f))
     }
 }
 
