@@ -1,5 +1,6 @@
 package org.davidtiago.genaitriviagame.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,64 +26,54 @@ fun GameResultsUi(
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .padding(bottom = 24.dp)
-                .weight(1f)
+        Text(
+            text = "Quiz Complete!",
+            style = MaterialTheme.typography.h4,
+            modifier = Modifier.padding(bottom = 24.dp)
+        )
+        Card(
+            modifier = Modifier.fillMaxWidth()
+                .padding(16.dp),
+            backgroundColor = MaterialTheme.colors.surface,
+            elevation = 4.dp
         ) {
-            Text(
-                text = "Quiz Complete!",
-                style = MaterialTheme.typography.h4,
-            )
-        }
-        Box(
-            contentAlignment = Alignment.Center
-        ) {
-            Card(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(16.dp),
-                backgroundColor = MaterialTheme.colors.surface,
-                elevation = 4.dp
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        "Your Score",
-                        style = MaterialTheme.typography.h5,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
-                    Text(
-                        "$score out of $totalQuestions",
-                        style = MaterialTheme.typography.h3,
-                        color = MaterialTheme.colors.primary,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
-                    Text(
-                        "Correct Answers: $score",
-                        style = MaterialTheme.typography.body1,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-                    Text(
-                        "Incorrect Answers: ${totalQuestions - score}",
-                        style = MaterialTheme.typography.body1,
-                        modifier = Modifier.padding(bottom = 24.dp)
-                    )
+                Text(
+                    "Your Score",
+                    style = MaterialTheme.typography.h5,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+                Text(
+                    "$score out of $totalQuestions",
+                    style = MaterialTheme.typography.h3,
+                    color = MaterialTheme.colors.primary,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+                Text(
+                    "Correct Answers: $score",
+                    style = MaterialTheme.typography.body1,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                Text(
+                    "Incorrect Answers: ${totalQuestions - score}",
+                    style = MaterialTheme.typography.body1,
+                    modifier = Modifier.padding(bottom = 24.dp)
+                )
 
-                    Button(
-                        onClick = onRestart,
-                        modifier = Modifier.padding(top = 16.dp)
-                    ) {
-                        Text("Play Again")
-                    }
+                Button(
+                    onClick = onRestart,
+                    modifier = Modifier.padding(top = 16.dp)
+                ) {
+                    Text("Play Again")
                 }
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
     }
 }
 

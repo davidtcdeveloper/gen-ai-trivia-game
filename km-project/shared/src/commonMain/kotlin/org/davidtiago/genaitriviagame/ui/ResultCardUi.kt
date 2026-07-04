@@ -36,6 +36,14 @@ internal fun ResultCardUi(
 ) {
     val isCorrect = selectedAnswer == question.correctAnswer
     var timeLeft by remember(question) { mutableStateOf(10) }
+    
+    val onPrimary = MaterialTheme.colors.onPrimary
+    val typography = MaterialTheme.typography
+    val timerStyle = remember(onPrimary, typography) {
+        typography.caption.copy(
+            color = onPrimary
+        )
+    }
 
     LaunchedEffect(question) {
         while (timeLeft > 0) {
@@ -84,9 +92,7 @@ internal fun ResultCardUi(
                         )
                         Text(
                             text = "$timeLeft",
-                            style = MaterialTheme.typography.caption.copy(
-                                color = MaterialTheme.colors.onPrimary
-                            )
+                            style = timerStyle
                         )
                     }
                 }
