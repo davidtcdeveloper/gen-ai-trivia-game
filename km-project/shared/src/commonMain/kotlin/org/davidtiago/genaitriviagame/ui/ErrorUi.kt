@@ -1,6 +1,8 @@
 package org.davidtiago.genaitriviagame.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
@@ -14,18 +16,23 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ErrorScreen(onRetry: () -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize(),
     ) {
-        Text(
-            "Failed to load questions",
-            style = MaterialTheme.typography.h6,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        Button(onClick = onRetry) {
-            Text("Retry")
+        Column(
+            modifier = Modifier.fillMaxWidth()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                "Failed to load questions",
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            Button(onClick = onRetry) {
+                Text("Retry")
+            }
         }
     }
 }
