@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
@@ -38,7 +38,7 @@ internal fun QuestionComposable(
     ) {
         QuestionText(questionText = question.text)
 
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.weight(1f)) {
             AnswerOptions(
                 options = question.options,
                 selectedAnswer = selectedAnswer,
@@ -69,8 +69,8 @@ internal fun AnswerOptions(
     onAnswerSelected: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.verticalScroll(rememberScrollState())) {
-        options.forEach { option ->
+    LazyColumn(modifier = modifier) {
+        items(options) { option ->
             val isSelected = selectedAnswer == option
             val onClick = remember(option, onAnswerSelected) {
                 { onAnswerSelected(option) }
