@@ -47,12 +47,12 @@ class GameViewModel(
     }
 
     fun restartGame() {
-        val currentState = stateMachine.state.value
-        val questionsToUse = when (currentState) {
+        val questionsToUse = when (val currentState = stateMachine.state.value) {
             is GameState.QuestionActive -> currentState.questions
             is GameState.AnswerResult -> currentState.questions
-            is GameState.Finished -> currentState.questions
-            else -> emptyList()
+            is GameState.Finished -> emptyList() // Resets the questions to force a reload
+            is GameState.Error, // In case of error or loading, returns without state change
+            GameState.Loading -> return
         }
 
         if (questionsToUse.isNotEmpty()) {
