@@ -10,11 +10,8 @@ class FirebaseAiBuilder(
     private val firebaseAiConfigRepository: FirebaseAiConfigRepository,
     private val context: Context,
 ) {
-    private val config: FirebaseAiConfig by lazy {
-        firebaseAiConfigRepository.getConfig()
-    }
-
-    fun getFirebaseAi(): FirebaseApp {
+    suspend fun getFirebaseAi(): FirebaseApp {
+        val config = firebaseAiConfigRepository.getConfig()
         val options = FirebaseOptions.Builder()
             .setApiKey(config.apiKey)
             .setProjectId(config.projectId)

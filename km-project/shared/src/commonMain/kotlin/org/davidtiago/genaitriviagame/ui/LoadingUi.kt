@@ -20,7 +20,7 @@ fun LoadingScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            "Loading questions...",
+            "LoadingQuestions questions...",
             style = MaterialTheme.typography.h6,
             modifier = Modifier.padding(bottom = 16.dp)
         )

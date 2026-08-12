@@ -4,23 +4,45 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.davidtiago.genaitriviagame.model.FirebaseAiConfig
+import org.davidtiago.genaitriviagame.presentation.GameEvent
+import org.davidtiago.genaitriviagame.presentation.GameState
+import org.davidtiago.genaitriviagame.presentation.GameStateMachine
 import org.davidtiago.genaitriviagame.repository.QuestionRepository
-import org.davidtiago.genaitriviagame.presentation.*
+import org.davidtiago.genaitriviagame.repository.FirebaseAiConfigRepository
 
 class GameViewModel(
     private val stateMachine: GameStateMachine,
-    private val questionRepository: QuestionRepository
+    private val questionRepository: QuestionRepository,
+    private val firebaseAiConfigRepository: FirebaseAiConfigRepository,
 ) : ViewModel() {
 
     val gameState: StateFlow<GameState> = stateMachine.state
 
     init {
-        loadQuestions()
+        viewModelScope.launch {
+            gameState.collect { state ->
+                if (state == GameState.LaunchingApp) {
+                    stateMachine.transition(
+                        GameEvent.InitialConfigLoaded(
+                           firebaseAiConfigRepository.getConfig()
+                        )
+                    )
+                }
+            }
+        }
     }
 
-    fun loadQuestions() {
+    fun saveAiConfig(firebaseAiConfig: FirebaseAiConfig) {
         viewModelScope.launch {
-            stateMachine.transition(GameEvent.LoadStarted)
+            firebaseAiConfigRepository.setConfig(firebaseAiConfig)
+            loadNewQuestions()
+        }
+    }
+
+    private fun loadNewQuestions() {
+        viewModelScope.launch {
+            stateMachine.transition(GameEvent.QuestionLoadStarted)
             try {
                 val questions = questionRepository.getQuestions()
                 if (questions.isEmpty()) {
@@ -47,18 +69,17 @@ class GameViewModel(
     }
 
     fun restartGame() {
-        val questionsToUse = when (val currentState = stateMachine.state.value) {
-            is GameState.QuestionActive -> currentState.questions
-            is GameState.AnswerResult -> currentState.questions
-            is GameState.Finished -> emptyList() // Resets the questions to force a reload
-            is GameState.Error, // In case of error or loading, returns without state change
-            GameState.Loading -> return
-        }
+        // Only the Finished or Error states ar valid for a restart.
+        // Other states are ignored for now.
+        when (stateMachine.state.value) {
+            is GameState.QuestionActive,
+            is GameState.AnswerResult,
+            is GameState.DefiningAiConfiguration,
+            GameState.LaunchingApp,
+            GameState.LoadingQuestions -> return
 
-        if (questionsToUse.isNotEmpty()) {
-            stateMachine.transition(GameEvent.Reset)
-        } else {
-            loadQuestions()
+            is GameState.Error,
+            is GameState.Finished -> loadNewQuestions()
         }
     }
 }

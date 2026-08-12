@@ -1,12 +1,23 @@
 package org.davidtiago.genaitriviagame.presentation
 
+import org.davidtiago.genaitriviagame.model.FirebaseAiConfig
 import org.davidtiago.genaitriviagame.model.Question
 
 sealed interface GameEvent {
     /**
+     * Triggered when app was launched and game must be configured.
+     * */
+    object AppLaunched : GameEvent
+
+    /**
+     * The initial configuration of the game was loaded.
+     * */
+    data class InitialConfigLoaded(val firebaseAiConfig: FirebaseAiConfig) : GameEvent
+
+    /**
      * Triggered when loading has initiated.
      */
-    object LoadStarted : GameEvent
+    object QuestionLoadStarted : GameEvent
 
     /**
      * Triggered when questions have successfully loaded.

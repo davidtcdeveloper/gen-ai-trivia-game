@@ -1,12 +1,19 @@
 package org.davidtiago.genaitriviagame.presentation
 
+import org.davidtiago.genaitriviagame.model.FirebaseAiConfig
 import org.davidtiago.genaitriviagame.model.Question
 
 sealed interface GameState {
+
     /**
-     * Initial state when questions are being loaded from the repository.
+     * The app was just launched and the game must be configured before advancing.
+     * */
+    object LaunchingApp : GameState
+
+    /**
+     * Questions are being loaded from the source before the game is ready to be played.
      */
-    object Loading : GameState
+    object LoadingQuestions : GameState
 
     /**
      * State representing a failure to load questions.
@@ -23,7 +30,6 @@ sealed interface GameState {
         val selectedAnswer: String?
     ) : GameState {
         val question: Question get() = questions[currentQuestionIndex]
-        val totalQuestions: Int get() = questions.size
     }
 
     /**
@@ -49,4 +55,12 @@ sealed interface GameState {
     ) : GameState {
         val totalQuestions: Int get() = questions.size
     }
+
+    /**
+     * User is defining the Ai configuration, including API keys.
+     * */
+    //TODO: Temporary state, will be migrated to a separated scree with navigation
+    class DefiningAiConfiguration(
+        val initialConfig: FirebaseAiConfig,
+    ) : GameState
 }

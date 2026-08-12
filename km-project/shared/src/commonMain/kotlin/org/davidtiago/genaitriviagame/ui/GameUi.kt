@@ -19,12 +19,12 @@ fun GameUi(
 
     Column(modifier) {
         when (val currentState = state) {
-            is GameState.Loading -> {
+            is GameState.LoadingQuestions -> {
                 LoadingScreen()
             }
 
             is GameState.Error -> {
-                ErrorScreen(onRetry = viewModel::loadQuestions)
+                ErrorScreen(onRetry = viewModel::restartGame)
             }
 
             is GameState.Finished -> {
@@ -52,6 +52,20 @@ fun GameUi(
                     onSubmit = viewModel::onSubmit,
                 )
             }
+
+            // Temporary states, will be replaced by proper navigation
+            // TODO: Migrate Launching and DefiningConfig into a separated screen with navigation
+            GameState.LaunchingApp -> {
+                LoadingScreen()
+            }
+
+            is GameState.DefiningAiConfiguration -> {
+                AiConfigComposable(
+                    config = currentState.initialConfig,
+                    onConfigSet = viewModel::saveAiConfig
+                )
+            }
+
         }
     }
 }

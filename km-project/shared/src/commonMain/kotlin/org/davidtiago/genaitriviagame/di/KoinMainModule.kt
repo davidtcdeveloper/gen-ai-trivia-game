@@ -27,6 +27,10 @@ val mainModule = module {
         GameStateMachineImpl()
     }
     viewModel {
-        GameViewModel(get(), get())
+        GameViewModel(
+            stateMachine = get(),
+            questionRepository = get(),
+            firebaseAiConfigRepository = get()
+        )
     }
 }
